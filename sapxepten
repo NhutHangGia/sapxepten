@@ -1,0 +1,76 @@
+#include<stdio.h>
+#include<string.h>
+#include<conio.h>
+#include<iostream>
+
+//khai bao mot cau truc sinh vien
+struct SinhVien {
+    int MaSV;
+    char TenSV[50];
+};
+
+void Nhap(SinhVien sv[], int n);
+void Xuat(SinhVien sv[], int n);
+void SapXep(SinhVien sv[], int n);
+
+
+void main()
+{
+    SinhVien sv[100];// khai bao mang sinh vien co 100 o nho
+    int n;//khai bao so nguyen n la sinh vien
+    //Nhap du lieu cua n
+    do {
+        printf("Nhap so sinh vien:");
+        scanf_s("%d", &n);
+        if (n < 1 || n>100)
+        {
+            printf("Nhap lai:");
+        }
+    } while (n < 1 || n>100);//dieu kien neu n<1 hoac n>100 yeu cau nhap lai
+
+    Nhap(sv, n);//goi ham nhap mang
+    printf("\nDanh sach cac sinh vien la:\n");
+    Xuat(sv, n);// goi ham xuat mang
+    printf("\nDanh sau khi sap xep la:\n");
+    SapXep(sv, n);// goi sap xep
+    Xuat(sv, n);
+    _getch();
+}
+
+void Nhap(SinhVien sv[], int n)//ham nhap sinh vien
+{
+    for (int i = 0; i < n; i++)//vong lap for duyet sinh vien trong mang tu 0 den n-1
+    {
+        //nhap du lieu vao mang
+        printf("Nhap sinh vien thu %d", i);
+        printf("\nNhap ma sinh vien:");
+        scanf_s("%d", &sv[i].MaSV);
+        printf("\nNhap ten sinh vien:");
+        rewind(stdin);
+        gets_s(sv[i].TenSV);
+    }
+}
+void Xuat(SinhVien sv[], int n)//ham xuat sinh vien
+{
+    for (int i = 0; i < n; i++)//vong lap for duyet sinh vien trong mang 0 den n-1
+    {
+        //hien thi cac sinh vien trong mang
+        printf("%d \t %s ", sv[i].MaSV, sv[i].TenSV);
+    }
+}
+
+void Sapxep(SinhVien sv[], int n)// ham sap xep
+{
+    for (int i = 0; i < n - 1; i++)
+    {
+        for (int j = i + 1; j < n; j++)
+        {
+            if (strcmp(sv[i].TenSV, sv[j].TenSV) > 0)//so sanh hai ten sinh vien
+            {
+                SinhVien k = sv[i];
+                sv[i] = sv[j];
+                sv[j] = k;
+            }
+        }
+    }
+}
